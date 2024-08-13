@@ -25,21 +25,13 @@ The dataset used is Datathon Dataset.xlsx, which includes historical sales data 
 	•	Longitude: Longitude of the store location
 	•	LeadTime: Time required to replenish the stock
 
-2. Data Preprocessing
+2. Model and Calculations
 
-	1.	Feature Engineering:
-	•	RegionBinary: Encodes regions as 0 or 1 based on the RegionName. Stores starting with ‘C’ are assigned 0; others are assigned 1.
-	•	StoreTierEncoded: Encodes the StoreTierTypeDescription using Label Encoding.
-	2.	Weather Data:
-	•	The process_weather_data function fetches historical weather data for a given latitude and longitude using the Open-Meteo API. It calculates the minimum temperature for the next week, which is used to adjust order quantities.
-
-3. Model and Calculations
-
-	1.	User Input:
+	1. User Input:
     
 	•	Users provide a store code and a date. The application filters the dataset based on these inputs to select relevant data for analysis.
 
-	3.	Weighted Average Calculation:
+	2. Weighted Average Calculation:
     
 	•	Weights are applied to various features to calculate a WeightedAverage score for each product at the specified store:
 	•	RegionBinary: Encoded as 0 or 1
@@ -50,47 +42,20 @@ The dataset used is Datathon Dataset.xlsx, which includes historical sales data 
 
 The formula used for calculating WeightedAverage is:
 
-\text{WeightedAverage} = w_{\text{store region}} \times \text{RegionBinary} - w_{\text{store tier}} \times \text{StoreTierEncoded} + w_{\text{store profit}} \times \text{UnitsLoyalty} - w_{\text{dc dist}} \times \text{DCDistance} - w_{\text{store low temp}} \times \text{Temperature}
+<img width="899" alt="image" src="https://github.com/user-attachments/assets/04dfe12a-d97b-4e56-8d87-66f416679c8c">
 
-### where each weight ( w_{\text{store region}}, w_{\text{store tier}}, \ldots ) is set to 0.2.
+## Results and Recommendations
 
-	3.	Normalization and Error Term:
- 
-	•	The WeightedAverage values are normalized using MinMaxScaler.
-	•	An error_term is calculated to account for variability in past sales and lead times:
-
-\text{error_term} = \text{NormalizedValue} \times \sqrt{\text{LeadTime} \times \text{std\_units\_by\_store}}
-
-	4.	Suggested Order Calculation:
-	•	The suggested order is computed using:
-
-\text{suggested\_order} = (\text{mean\_units} \times \text{LeadTime}) - \text{error_term}
-
-	•	This value is floored to the nearest integer.
- 
-	5.	Handling Non-Matching Products:
- 
-	•	For products not matching the filtered data, suggested orders are calculated as:
-
-\text{suggested\_order} = \text{mean\_units} \times \text{LeadTime} + 3
-
-	•	This ensures a baseline order quantity for products not present in the filtered dataset.
-
-Results and Recommendations
-
-	•	Suggested Orders Based on Past Year:
+	•	Suggested Orders Based on Past Year
 	•	Orders are suggested based on historical data for each product at the specified store.
-	•	Suggested Orders Based on Threat Threshold:
+	•	Suggested Orders Based on Threat Threshold
 	•	Orders are suggested for products not present in the filtered data to ensure adequate stock levels.
-	•	Aggregate Difference:
 	•	The application calculates and displays the difference between the total units suggested based on past data and the total units suggested for non-matching products.
 
 We dove into store performance by measuring a couple of different metrics: average days in inventory, gross margin returns on investment in inventory, and the inventory-to-sales ratio. We normalized each metric then created an equally weighted scoring metric to find the top and bottom performing stores.  
 
-## Results and Interpretation 
+## Insight 
 
 We found that temperature had the most effect on both profit margins and sell-through by using a correlation matrix. We also found that C-stores had less sales, this is due to their target demographic being families rather than truckers, which is reflected in the loyalty sales percentages. This is because only truckers can join the loyalty program. 
 
-## Recommendations & Conclusions 
 
-To optimize Love’s current strategy, our model looks at past year sales in relation to time of year, temperature, distance from a distribution center, lead time, store tier, and profitability. By using this model stores will be able to optimize inventory replenishment strategy. We also recommend opening a distribution center in the north as these are the most successful stores in terms of profitability and sell-through. 
