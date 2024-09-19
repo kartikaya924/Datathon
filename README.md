@@ -3,7 +3,7 @@ Love’s Travel Stops aimed to optimize its replenishment strategy for Anti-Gel 
 
 ## Problem Summary & Purpose of the Analysis 
 
-We have been asked to optimize Love’s Travel Stops replenishment strategy for Anti-Gel diesel additives. Because of the seasonality of Anti-Gel sales, it can be hard to predict the stock needed for a store. Overstocking can negatively affect the balance sheet, but understocking can lead to missed sales opportunities.  
+We were asked to optimize Love’s Travel Stops replenishment strategy for Anti-Gel diesel additives. Because of the seasonality of Anti-Gel sales, it can be hard to predict the stock needed for a store. Overstocking can negatively affect the balance sheet, but understocking can lead to missed sales opportunities.  
 
 ## Data and Methods Used 
 
