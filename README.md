@@ -11,7 +11,7 @@ We developed a dynamic ordering system for Loves stores based on historical sale
 
 1. Data
 
-The dataset used is Datathon Dataset.xlsx, which includes historical sales data along with various attributes related to stores and products. The key columns utilized are:
+The dataset included historical sales data along with various attributes related to stores and products. The key columns utilized were:
 
 	•	SalesDate: Date of the sale
 	•	StoreNumber: Identifier for each store
